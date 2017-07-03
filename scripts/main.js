@@ -14,7 +14,7 @@ function createGrid(rows, columns, width, height) {
     $container.css("height", height);
     $square.css("width", 100/rows + "%");
     $square.css("height", 100/columns + "%");
-    $("body").append($container);
+    $("#page").append($container);
 
     for(var i=0; i<columns; i++) {
         $row.append($square.clone());
@@ -35,7 +35,7 @@ function createGrid(rows, columns, width, height) {
     $("#resize").click(function() {
         rows = prompt("Please enter grid size", "16");
         columns = rows;
-        $("#container").empty();
+        $("#container").remove();
         createGrid(rows, columns, width, height);
     });
 }
