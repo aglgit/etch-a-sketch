@@ -12,7 +12,7 @@ function createGrid(rows, columns, width, height) {
     var $square = $('<div>', {class: "square"});
     var isBlack = true;
     var hover = true;
-    var noGradient = true;
+    var noEraser = true;
 
     $container.css("width", width);
     $container.css("height", height);
@@ -50,6 +50,19 @@ function createGrid(rows, columns, width, height) {
         } else {
             squareHover("yellow", "black");
             isBlack = true;
+        }
+    });
+
+    $("#eraser").click(function() {
+        if (noEraser) {
+            $(".square").hover(
+                function() {$(this).css("background-color", "yellow");},
+                function() {$(this).css("background-color", "#FFFFFF");}
+            );
+            noEraser = false;
+        } else {
+            squareHover("yellow", "black");
+            noEraser = true;
         }
     });
 }
