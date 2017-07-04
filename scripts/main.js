@@ -10,6 +10,10 @@ function createGrid(rows, columns, width, height) {
     var $container = $('<div>', {id: "container"});
     var $row = $('<div>', {class: "row"});
     var $square = $('<div>', {class: "square"});
+    var isBlack = true;
+    var hover = true;
+    var noGradient = true;
+
     $container.css("width", width);
     $container.css("height", height);
     $square.css("width", 100/rows + "%");
@@ -23,10 +27,7 @@ function createGrid(rows, columns, width, height) {
         $container.append($row.clone());
     }
 
-    $(".square").hover(
-        function() {$(this).css("background-color", "yellow");},
-        function() {$(this).css("background-color", "pink");}
-    );
+    squareHover("yellow", "black");
 
     $("#clear").click(function() {
         $(".square").css("background-color", "#FFFFFF");
@@ -38,4 +39,37 @@ function createGrid(rows, columns, width, height) {
         $("#container").remove();
         createGrid(rows, columns, width, height);
     });
+
+    $("#random").click(function() {
+        if (isBlack) {
+            $(".square").hover(
+                function() {$(this).css("background-color", "yellow");},
+                function() {$(this).css("background-color", setRandomColor(this));}
+            );
+            isBlack = false;
+        } else {
+            squareHover("yellow", "black");
+            isBlack = true;
+        }
+    });
+}
+
+function squareHover(colorIn, colorOut) {
+    $(".square").hover(
+        function() {$(this).css("background-color", colorIn);},
+        function() {$(this).css("background-color", colorOut);}
+    );
+}
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function setRandomColor(element) {
+  $(element).css("background-color", getRandomColor());
 }
